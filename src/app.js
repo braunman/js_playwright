@@ -1,7 +1,7 @@
 import { LoginPage, MainPage, RegisterPage, UserMenu, NavigationBar, EditorPage, ArticlePage } from "./pages";
 
 
-export class App {
+export class WebApp {
     constructor(page) {
         this.page = page;
         this.mainPage = new MainPage(this.page);

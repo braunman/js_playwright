@@ -4,8 +4,8 @@ import { BasePage } from './base.page';
 export class RegisterPage extends BasePage {
     constructor(page) {
         super(page);
-        this.nameField = this.page.getByPlaceholder('Your Name');
         this.emailField = this.page.getByPlaceholder('Email');
+        this.nameField = this.page.getByPlaceholder('Your Name');
         this.passwordField = this.page.getByPlaceholder('Password');
         this.singupButton = this.page.getByRole('button', { name: 'Sign up' });
     }

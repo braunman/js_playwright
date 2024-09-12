@@ -1,15 +1,14 @@
 import { BasePage } from "./base.page";
 import { UserMenu } from "./user.menu";
 
-
 export class EditorPage extends BasePage {
     constructor(page) {
         super(page)
-        this.title = this.page.getByPlaceholder('Article Title');
         this.about = this.page.getByPlaceholder('What\'s this article about?');
         this.body = this.page.getByPlaceholder('Write your article (in');
-        this.tag = this.page.getByPlaceholder('Enter tags');
         this.publishButton = page.getByRole('button', { name: 'Publish Article' });
+        this.tag = this.page.getByPlaceholder('Enter tags');
+        this.title = this.page.getByPlaceholder('Article Title');
         this.userMenu = new UserMenu(this.page)
     }
 
@@ -23,8 +22,7 @@ export class EditorPage extends BasePage {
         await this.body.fill(body);
         await this.tag.click();
         await this.tag.fill(tag);
-        await this.publishButton.click()
-
+        await this.publishButton.click();
     }
 
 

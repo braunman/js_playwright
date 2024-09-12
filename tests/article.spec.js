@@ -1,29 +1,27 @@
-import { test, expect } from '@playwright/test';
-import { App } from '../src/app';
 import { faker } from '@faker-js/faker';
-import { createUser, createArticle } from '../src/utilits';
+import { expect } from '@playwright/test';
 
+import { test } from '../fixtures';
+import { createArticle, createUser } from '../src/utilits';
 
 test.describe('Созадние новой заметки', () => {
     let newArticle;
-    let app;
-    test.beforeEach(async ({ page }) => {
+    test.beforeEach(async ({ app }) => {
         let newUser = createUser();
         newArticle = createArticle();
-        app = new App(page);
         await app.open('/');
         await app.goToRigister();
         await app.registerPage.registerUser(newUser);
     });
 
-    test('Успешное создание статьи', async ({ page }) => {
+    test('Успешное создание статьи', async ({ page, app }) => {
         await app.goToNewArticle();
         await app.editorPage.createArticle(newArticle);
         await expect(page.getByText(newArticle.title)).toBeVisible();
         await expect(page.getByText(newArticle.body)).toBeVisible();
     });
 
-    test('Новая статья есть на главной', async ({ page }) => {
+    test('Новая статья есть на главной', async ({ page, app }) => {
         await app.goToNewArticle();
         await app.editorPage.createArticle(newArticle);
         await expect(page.getByText(newArticle.title)).toBeVisible();
@@ -38,11 +36,9 @@ test.describe('Созадние новой заметки', () => {
 
 test.describe('Действия над заметкой', () => {
     let newArticle;
-    let app;
-    test.beforeEach(async ({ page }) => {
+    test.beforeEach(async ({ app }) => {
         let newUser = createUser();
         newArticle = createArticle();
-        app = new App(page);
         await app.open('/');
         await app.goToRigister();
         await app.registerPage.registerUser(newUser);
@@ -51,14 +47,14 @@ test.describe('Действия над заметкой', () => {
 
     });
 
-    test('Добавление комментария', async ({ page }) => {
+    test('Добавление комментария', async ({ page, app }) => {
         let comment = faker.lorem.lines();
         await app.articlePage.addComment(comment);
         await expect(page.getByText('There are no comments yet')).not.toBeVisible()
         await expect(page.getByText(comment)).toBeVisible()
     });
 
-    test('Удаление комментария', async ({ page }) => {
+    test('Удаление комментария', async ({ page, app }) => {
         let comment = faker.lorem.lines();
         await app.articlePage.addComment(comment);
         await app.articlePage.deleteComment();

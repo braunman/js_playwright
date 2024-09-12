@@ -5,8 +5,8 @@ export class ArticlePage extends BasePage {
     constructor(page) {
         super(page)
         this.commentFiled = this.page.getByPlaceholder('Write a comment');
-        this.postCommentButton = this.page.getByRole('button', { name: 'Post Comment' });
         this.existCommentCard = this.page.locator('div.card');
+        this.postCommentButton = this.page.getByRole('button', { name: 'Post Comment' });
     }
 
     async addComment(comment) {
