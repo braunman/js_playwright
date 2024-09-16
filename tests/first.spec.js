@@ -1,15 +1,17 @@
-import { expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
-import { test } from '../fixtures';
+import { WebApp } from '../src/app';
 import { createUser } from '../src/utilits';
 
 test.describe('Register user', () => {
   let newUser;
-  test.beforeEach(async () => {
+  let app;
+  test.beforeEach(async ({ page }) => {
     newUser = createUser();
+    app = new WebApp(page);
   });
 
-  test('Регистрация нового пользователя', async ({ page, app }) => {
+  test('Регистрация нового пользователя', async ({ page }) => {
     await app.open('/');
     await app.goToRigister();
     await app.registerPage.registerUser(newUser);

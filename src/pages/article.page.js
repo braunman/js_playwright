@@ -1,11 +1,11 @@
 import { BasePage } from "./base.page";
 
-
 export class ArticlePage extends BasePage {
     constructor(page) {
         super(page)
         this.commentFiled = this.page.getByPlaceholder('Write a comment');
         this.existCommentCard = this.page.locator('div.card');
+        this.noConnmetOnPage = this.page.getByText('There are no comments yet');
         this.postCommentButton = this.page.getByRole('button', { name: 'Post Comment' });
     }
 
