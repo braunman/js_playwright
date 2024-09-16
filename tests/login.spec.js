@@ -15,7 +15,7 @@ test.describe('Страница Login', () => {
         await app.doLogout();
     });
 
-    test('Успешный Login нового пользователя', async () => {
+    test('Успешный Login нового пользователя', async ({ page }) => {
         await app.goToLogin();
         await app.loginPage.doLogin(newUser.email, newUser.password)
         await expect(page.getByText(newUser.username)).toBeVisible();
