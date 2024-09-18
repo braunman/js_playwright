@@ -11,26 +11,26 @@ test.describe('Созадние новой заметки', () => {
         let newUser = createUser();
         newArticle = createArticle();
         app = new WebApp(page);
-        await app.open('/');
-        await app.goToRigister();
+        await app.mainPage.open('/');
+        await app.navigationBar.goToRigister();
         await app.registerPage.registerUser(newUser);
     });
 
-    test('Успешное создание статьи', async ({ page }) => {
-        await app.goToNewArticle();
+    test('Успешное создание статьи', async () => {
+        await app.navigationBar.goToNewArticle();
         await app.editorPage.createArticle(newArticle);
-        await expect(page.getByText(newArticle.title)).toBeVisible();
-        await expect(page.getByText(newArticle.body)).toBeVisible();
+        await expect(app.articlePage.articleTitle).toContainText(newArticle.title);
+        await expect(app.articlePage.articleText).toContainText(newArticle.body);
     });
 
     test('Новая статья есть на главной', async ({ page }) => {
-        await app.goToNewArticle();
+        await app.navigationBar.goToNewArticle();
         await app.editorPage.createArticle(newArticle);
-        await expect(page.getByText(newArticle.title)).toBeVisible();
-        await app.goToHome();
+        await app.navigationBar.goToHome();
         await app.mainPage.showGlobalFeed();
-        await expect(page.getByText(newArticle.title)).toBeVisible();
-        await expect(page.getByText(newArticle.about)).toBeVisible();
+        await app.mainPage.articleLoads();
+        await expect(app.mainPage.allArticles).toContainText([newArticle.title]);
+        await expect(app.mainPage.allArticles).toContainText([newArticle.about]);
     });
 
 });
@@ -43,10 +43,10 @@ test.describe('Действия над заметкой', () => {
         let newUser = createUser();
         app = new WebApp(page)
         newArticle = createArticle();
-        await app.open('/');
-        await app.goToRigister();
+        await app.mainPage.open('/');
+        await app.navigationBar.goToRigister();
         await app.registerPage.registerUser(newUser);
-        await app.goToNewArticle();
+        await app.navigationBar.goToNewArticle();
         await app.editorPage.createArticle(newArticle);
 
     });

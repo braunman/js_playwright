@@ -12,10 +12,10 @@ test.describe('Register user', () => {
   });
 
   test('Регистрация нового пользователя', async ({ page }) => {
-    await app.open('/');
-    await app.goToRigister();
+    await app.mainPage.open('/');
+    await app.navigationBar.goToRigister();
     await app.registerPage.registerUser(newUser);
-    await expect(page.getByText(newUser.username)).toBeVisible()
+    await expect(app.userMenu.menu).toContainText(newUser.username)
 
   });
 

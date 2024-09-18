@@ -6,4 +6,9 @@ export class UserMenu {
         this.profile = this.page.getByRole('link', { name: 'Profile' });
         this.settings = this.page.getByRole('link', { name: 'Settings' });
     }
+
+    async doLogout() {
+        await this.menu.click();
+        await this.logout.click();
+    }
 };

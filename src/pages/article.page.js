@@ -7,6 +7,8 @@ export class ArticlePage extends BasePage {
         this.existCommentCard = this.page.locator('div.card');
         this.noConnmetOnPage = this.page.getByText('There are no comments yet');
         this.postCommentButton = this.page.getByRole('button', { name: 'Post Comment' });
+        this.articleTitle = this.page.locator('.article-page h1');
+        this.articleText = this.page.locator('.article-content');
     }
 
     async addComment(comment) {

@@ -13,7 +13,6 @@ export class EditorPage extends BasePage {
     }
 
     async createArticle({ title = '', about = '', body = '', tag = '' }) {
-        // { title, about, body,tags }
         await this.title.click();
         await this.title.fill(title);
         await this.about.click();
@@ -23,6 +22,7 @@ export class EditorPage extends BasePage {
         await this.tag.click();
         await this.tag.fill(tag);
         await this.publishButton.click();
+        await this.page.waitForLoadState('networkidle')
     }
 
 

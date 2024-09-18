@@ -9,29 +9,29 @@ test.describe('Страница Login', () => {
     test.beforeEach(async ({ page }) => {
         newUser = createUser()
         app = new WebApp(page);
-        await app.open('/');
-        await app.goToRigister();
+        await app.mainPage.open('/');
+        await app.navigationBar.goToRigister();
         await app.registerPage.registerUser(newUser);
-        await app.doLogout();
+        await app.userMenu.doLogout();
     });
 
-    test('Успешный Login нового пользователя', async ({ page }) => {
-        await app.goToLogin();
+    test('Успешный Login нового пользователя', async () => {
+        await app.navigationBar.goToLogin();
         await app.loginPage.doLogin(newUser.email, newUser.password)
-        await expect(page.getByText(newUser.username)).toBeVisible();
+        expect(await app.userMenu.getUserName()).toContain(newUser.username);
     });
 
     test('Login с неправильным email', async () => {
-        await app.goToLogin();
-        await app.loginPage.doLogin(createUser().email, newUser.password)
-        expect(await app.getErrorText()).toContain('Email not found sign in first');
+        await app.navigationBar.goToLogin();
+        await app.loginPage.doLogin(createUser().email, newUser.password);
+        expect(await app.loginPage.getErrorText()).toContain('Email not found sign in first');
 
     });
 
     test('Login с неправильным password', async () => {
-        await app.goToLogin();
+        await app.navigationBar.goToLogin();
         await app.loginPage.doLogin(newUser.email, createUser().password);
-        expect(await app.getErrorText()).toContain('Wrong email/password combination');
+        expect(await app.loginPage.getErrorText()).toContain('Wrong email/password combination');
     });
 
 });
