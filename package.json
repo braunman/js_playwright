@@ -1,0 +1,21 @@
+{
+  "name": "qaquru",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "debug": "npx playwright test --ui",
+    "report": "npx playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+  },
+  "dependencies": {
+    "@playwright/test": "^1.47.0",
+    "@types/node": "^22.5.4",
+    "@faker-js/faker": "^9.0.0"
+  }
+}
